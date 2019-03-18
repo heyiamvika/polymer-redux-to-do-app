@@ -1,7 +1,11 @@
 import { LitElement, html, css } from 'lit-element';
-// import plus from '../../images/plus.png';
+import { store } from '../store';
 
 export class ToDoButton extends LitElement {
+    constructor() {
+        super();
+    }
+
     static get properties() {
         return {
         };
@@ -16,6 +20,9 @@ export class ToDoButton extends LitElement {
                 border-radius: 50%;
                 background-color: #50e3a4;
                 box-shadow: 0 3px 10px rgba(62, 192, 136, 0.8);
+                display: flex;
+                justify-content: center;
+                align-items: center;
             }
         `
         ];
@@ -24,13 +31,14 @@ export class ToDoButton extends LitElement {
     render() {
         // Anything that's related to rendering should be done in here.
         return html`
-         <div class="button">
+         <div class="button" @click=${this.addNewToDo}>
+            <img src="../../images/plus.png"/>
          </div>
       `
     }
 
-    constructor() {
-        super();
+    addNewToDo() {
+        store.dispatch({ type: "ADD_TODO" });
     }
 }
 

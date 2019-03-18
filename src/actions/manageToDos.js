@@ -10,3 +10,15 @@ export const checkToDo = () => {
 export const uncheckToDo = () => {
     console.log("unchecked");
 }
+
+// export const addToDo = (toDoList, newToDo) => {
+//     console.log("added");
+//     return [...toDoList, newToDo];
+// }
+
+export const deleteToDo = (toDoList, toDoToDelete) => {
+    const newArray = [...toDoList.filter(item => item._id !== toDoToDelete._id)];
+    console.log(newArray);
+
+    return newArray;
+}

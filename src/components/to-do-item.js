@@ -44,6 +44,9 @@ export class ToDoItem extends LitElement {
             height: 59px;
             border: 7px solid #eef0f5;
             border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
         .to-do-checkbox-checked {
@@ -51,6 +54,9 @@ export class ToDoItem extends LitElement {
             height: 59px;
             border: 7px solid #50e3a4;
             border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
         `
         ];
@@ -61,7 +67,9 @@ export class ToDoItem extends LitElement {
         return html`
             <div class="wrapper">
                  <span class="${this.checked ? "to-do-text-checked" : "to-do-text-unchecked"}" @click=${this.clickItem}>${this.name}</span>
-                 <span class="${this.checked ? "to-do-checkbox-checked" : "to-do-checkbox-unchecked"}" @click=${this.clickItem}></span>
+                 <span class="${this.checked ? "to-do-checkbox-checked" : "to-do-checkbox-unchecked"}" @click=${this.clickItem}>
+                    <img class="checkedIcon" src="../../images/checked.png" />
+                 </span>
             </div>
             `
     }
