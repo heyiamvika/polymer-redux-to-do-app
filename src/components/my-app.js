@@ -51,7 +51,14 @@ class MyApp extends LitElement {
         flex-direction: column;
       }
 
-      .date-box {
+      .date-font-styles {
+        text-transform: uppercase;
+        color: #616473;
+        font-weight: 500;
+        font-family: "Gotham-Rounded-Book", Helvetica, Arial, sans-serif;
+      }
+
+      .upper-box {
         width: 100%;
         min-height: 55px;
         margin-bottom: 125px;
@@ -60,13 +67,36 @@ class MyApp extends LitElement {
         align-items: center;
       }
 
-      .day-of-the-week {
-        text-transform: uppercase;
-        color: #616473;
+      .date {
+        height: 76px;
+        min-width: 150px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .date-month-year-wrapper {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .date-day {
+        font-size: 76px;
+      }
+
+      .date-month {
         font-size: 26px;
-        font-weight: 500;
-        line-height: 80px;
-        font-family: "Gotham-Rounded-Book", Helvetica, Arial, sans-serif;
+      }
+
+      .date-year {
+        font-size: 26px;
+        font-weight: 400;
+      }
+
+      .day-of-the-week {
+        font-size: 26px;
       }
 
       .button {
@@ -86,9 +116,15 @@ class MyApp extends LitElement {
     return html`
       <div class="box">
         <div class="content-box">
-          <div class="date-box">
-            <span class="date"></span>
-            <span class="day-of-the-week">${this.getDayOfTheWeek()}</span>
+          <div class="upper-box">
+            <div class="date">
+              <span class="date-font-styles date-day">${this.currentDate.getDate()}</span>
+              <div class="date-month-year-wrapper">
+                <span class="date-font-styles date-month">${this.getCurrentMonth()}</span>
+                <span class="date-font-styles date-year">${this.currentDate.getFullYear()}</span>
+              </div>
+            </div>
+            <span class="date-font-styles day-of-the-week">${this.getDayOfTheWeek()}</span>
           </div>
           ${toDoS}
         </div>
@@ -106,10 +142,16 @@ class MyApp extends LitElement {
     console.log(this.lightboxOpen);
   }
 
+  getCurrentMonth() {
+    const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'];
+    const thisMonth = this.currentDate.getMonth();
+    return months[thisMonth - 1];
+  }
+
   getDayOfTheWeek() {
-    const weekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+    const weekdays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
     const thisDay = this.currentDate.getDay();
-    return weekdays[thisDay];
+    return weekdays[thisDay - 1];
   }
 }
 
