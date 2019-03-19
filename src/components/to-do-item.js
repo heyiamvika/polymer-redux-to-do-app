@@ -5,7 +5,8 @@ export class ToDoItem extends LitElement {
     static get properties() {
         return {
             name: String,
-            checked: Boolean
+            checked: Boolean,
+            id: Number
         };
     }
 
@@ -59,11 +60,10 @@ export class ToDoItem extends LitElement {
     }
 
     render() {
-        // Anything that's related to rendering should be done in here.
         return html`
-            <div class="wrapper">
-                 <span class="${this.checked ? "to-do-text to-do-text-checked" : "to-do-text to-do-text-unchecked"}" @click=${this.clickItem}>${this.name}</span>
-                 <span class="${this.checked ? "to-do-checkbox to-do-checkbox-checked" : "to-do-checkbox to-do-checkbox-unchecked"}" @click=${this.clickItem}>
+            <div class="wrapper" @click = ${this.clickItem}>
+                 <span class="${this.checked ? "to-do-text to-do-text-checked" : "to-do-text to-do-text-unchecked"}">${this.name}</span>
+                 <span class="${this.checked ? "to-do-checkbox to-do-checkbox-checked" : "to-do-checkbox to-do-checkbox-unchecked"}">
                     ${this.checked ? html`<img class="checkedIcon" src="../../images/checked.png" />` : html``}
                  </span>
             </div>
@@ -71,10 +71,8 @@ export class ToDoItem extends LitElement {
     }
 
 
-    clickItem(event) {
-        this.checked ?
-            store.dispatch({ type: "UNCHECK_TODO" }) :
-            store.dispatch({ type: "CHECK_TODO" })
+    clickItem() {
+        store.dispatch({ type: "TOGGLE_TODO", item: { id: this.id, name: this.name, checked: this.checked } });
     }
 }
 

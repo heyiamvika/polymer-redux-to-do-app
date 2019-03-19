@@ -54,7 +54,7 @@ class MyApp extends LitElement {
       .date-font-styles {
         text-transform: uppercase;
         color: #616473;
-        font-weight: 500;
+        font-weight: 900;
         font-family: "Gotham-Rounded-Book", Helvetica, Arial, sans-serif;
       }
 
@@ -110,7 +110,7 @@ class MyApp extends LitElement {
   }
 
   render() {
-    const toDoS = store.getState().map(item => html`<to-do-item name=${item.name} .checked="${item.checked}"></to-do-item>`);
+    const toDoS = store.getState().toDos.map(item => html`<to-do-item name=${item.name} .checked="${item.checked}" .id=${item.id}></to-do-item>`);
 
     // Anything that's related to rendering should be done in here.
     return html`
