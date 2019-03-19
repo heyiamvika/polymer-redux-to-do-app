@@ -37,8 +37,8 @@ export class ToDoButton extends LitElement {
       `
     }
 
-    addNewToDo() {
-        store.dispatch({ type: "ADD_TODO" });
+    openLightbox() {
+        console.log('opened');
     }
 }
 

@@ -22,41 +22,37 @@ export class ToDoItem extends LitElement {
             margin-bottom: 20px;
         }
 
-        .to-do-text-unchecked {
-            color: #3e434f;
+        .to-do-text {
             font-size: 33px;
             font-weight: 400;
             line-height: 80px;
             font-family: "Gotham Rounded - Book";
+        }
+
+        .to-do-text-unchecked {
+            color: #3e434f;
         }
 
         .to-do-text-checked {
             color: #bdc0ca;
-            font-size: 33px;
-            font-weight: 400;
-            line-height: 80px;
-            font-family: "Gotham Rounded - Book";
         }
 
-
-        .to-do-checkbox-unchecked {
+        .to-do-checkbox {
             width: 59px;
             height: 59px;
-            border: 7px solid #eef0f5;
+            border: 7px solid;
             border-radius: 50%;
             display: flex;
             justify-content: center;
             align-items: center;
+        }
+
+        .to-do-checkbox-unchecked {
+            border-color: #eef0f5;
         }
 
         .to-do-checkbox-checked {
-            width: 59px;
-            height: 59px;
-            border: 7px solid #50e3a4;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            border-color: #50e3a4;
         }
         `
         ];
@@ -66,9 +62,9 @@ export class ToDoItem extends LitElement {
         // Anything that's related to rendering should be done in here.
         return html`
             <div class="wrapper">
-                 <span class="${this.checked ? "to-do-text-checked" : "to-do-text-unchecked"}" @click=${this.clickItem}>${this.name}</span>
-                 <span class="${this.checked ? "to-do-checkbox-checked" : "to-do-checkbox-unchecked"}" @click=${this.clickItem}>
-                    <img class="checkedIcon" src="../../images/checked.png" />
+                 <span class="${this.checked ? "to-do-text to-do-text-checked" : "to-do-text to-do-text-unchecked"}" @click=${this.clickItem}>${this.name}</span>
+                 <span class="${this.checked ? "to-do-checkbox to-do-checkbox-checked" : "to-do-checkbox to-do-checkbox-unchecked"}" @click=${this.clickItem}>
+                    ${this.checked ? html`<img class="checkedIcon" src="../../images/checked.png" />` : html``}
                  </span>
             </div>
             `

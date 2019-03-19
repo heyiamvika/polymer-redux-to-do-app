@@ -13,6 +13,7 @@ import { store } from '../store';
 
 import './to-do-item';
 import './to-do-button';
+import './add-to-do-box';
 
 class MyApp extends LitElement {
   static get properties() {
@@ -36,6 +37,8 @@ class MyApp extends LitElement {
         flex-direction: column;
         align-items: center;
         justify-content: center;
+        position: relative;
+        box-shadow: 0 6px 15px rgba(207, 211, 218, 0.35);
       }
 
       .content-box {
@@ -67,6 +70,7 @@ class MyApp extends LitElement {
         <div class="button">
           <to-do-button></to-do-button>
         </div>
+        <add-to-do-box></add-to-do-box>
       </div>
     `
   }
