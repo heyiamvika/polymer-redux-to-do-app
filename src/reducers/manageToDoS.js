@@ -18,7 +18,7 @@ const INITIAL_STATE = [
 export const manageToDoS = (state = INITIAL_STATE, action) => {
     switch (action.type) {
         case "ADD_TODO":
-            return addToDo(state);
+            return addToDo(state, action.text);
         case "DELETE_TODO":
             return state;
         case "CHECK_TODO":
@@ -32,9 +32,9 @@ export const manageToDoS = (state = INITIAL_STATE, action) => {
     }
 };
 
-export const addToDo = (toDoList) => {
+export const addToDo = (toDoList, toDoText) => {
     const newToDo = {
-        name: "This is a new to do",
+        name: toDoText,
         checked: false
     }
     console.log([...toDoList, newToDo]);

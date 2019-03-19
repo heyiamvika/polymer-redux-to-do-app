@@ -25,8 +25,8 @@ export class ToDoItem extends LitElement {
         .to-do-text {
             font-size: 33px;
             font-weight: 400;
-            line-height: 80px;
-            font-family: "Gotham Rounded - Book";
+            font-family: "Gotham-Rounded-Book", Helvetica, Arial, sans-serif;
+            line-height: 88px;
         }
 
         .to-do-text-unchecked {

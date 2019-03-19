@@ -16,13 +16,15 @@ import './to-do-button';
 import './add-to-do-box';
 
 class MyApp extends LitElement {
+  constructor() {
+    super();
+    this.currentDate = new Date();
+    this.lightboxOpen = false;
+  }
+
   static get properties() {
     return {
     };
-  }
-
-  constructor() {
-    super();
   }
 
   static get styles() {
@@ -30,7 +32,7 @@ class MyApp extends LitElement {
       css`
       .box {
         width: 100%;
-        height: 100vh;
+        min-height: 100vh;
         padding: 60px;
         background-color: beige;
         display: flex;
@@ -43,36 +45,71 @@ class MyApp extends LitElement {
 
       .content-box {
         width: 700px;
-        height: 1296px;
         background-color: white;
-        padding: 122px 105px;
+        padding: 122px 105px 192px 105px;
         display: flex;
         flex-direction: column;
       }
 
+      .date-box {
+        width: 100%;
+        min-height: 55px;
+        margin-bottom: 125px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .day-of-the-week {
+        text-transform: uppercase;
+        color: #616473;
+        font-size: 26px;
+        font-weight: 500;
+        line-height: 80px;
+        font-family: "Gotham-Rounded-Book", Helvetica, Arial, sans-serif;
+      }
+
       .button {
-        margin-top: -90px;
+        position: relative;
+        bottom: 90px;
+        margin-left: auto;
+        margin-right: auto;
       }
       `
     ];
   }
 
   render() {
-    // console.log('store Added', store.getState().map(item => item.checked ? "checked" : "unchecked"));
     const toDoS = store.getState().map(item => html`<to-do-item name=${item.name} .checked="${item.checked}"></to-do-item>`);
 
     // Anything that's related to rendering should be done in here.
     return html`
       <div class="box">
         <div class="content-box">
+          <div class="date-box">
+            <span class="date"></span>
+            <span class="day-of-the-week">${this.getDayOfTheWeek()}</span>
+          </div>
           ${toDoS}
         </div>
         <div class="button">
-          <to-do-button></to-do-button>
+            <to-do-button @click=${this.openCloseLightbox}></to-do-button>
         </div>
-        <add-to-do-box></add-to-do-box>
+        ${this.lightboxOpen ? html`<add-to-do-box></add-to-do-box>` : html``}; 
       </div>
     `
+  }
+
+  openCloseLightbox() {
+    console.log(this.lightboxOpen);
+    this.lightboxOpen = !this.lightboxOpen;
+    console.log(this.lightboxOpen);
+  }
+
+  getDayOfTheWeek() {
+    const weekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+    const thisDay = this.currentDate.getDay();
+    return weekdays[thisDay];
   }
 }
 
