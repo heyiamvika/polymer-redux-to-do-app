@@ -1,7 +1,8 @@
 import {
     ADD_TODO,
     DELETE_TODO,
-    TOGGLE_TODO
+    TOGGLE_TODO,
+    TOGGLE_LIGHTBOX
 } from '../actions/manageToDos';
 
 const INITIAL_STATE = {
@@ -25,13 +26,21 @@ export const manageToDoS = (state = INITIAL_STATE, action) => {
             return state;
         case "TOGGLE_TODO":
             return toggleTodo(state.toDos, action.item);
+        case "TOGGLE_LIGHTBOX":
+            return toggleLightbox(state);
         default:
             return state;
     }
 };
 
+export const toggleLightbox = (state) => {
+    console.log({ ...state, lightboxOpen: !state.lightboxOpen });
+
+    return { ...state, lightboxOpen: !state.lightboxOpen }
+}
+
 export const toggleTodo = (toDoList, toDoItem) => {
-    const array = toDoList.map(item => {
+    return toDoList.map(item => {
         if (item.id === toDoItem.id) {
             return {
                 ...item,
@@ -41,8 +50,6 @@ export const toggleTodo = (toDoList, toDoItem) => {
             return item;
         }
     });
-
-    console.log(array);
 }
 
 export const addToDo = (toDoList, toDoText) => {

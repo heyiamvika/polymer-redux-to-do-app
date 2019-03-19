@@ -31,14 +31,10 @@ export class ToDoButton extends LitElement {
     render() {
         // Anything that's related to rendering should be done in here.
         return html`
-         <div class="button" @click=${this.addNewToDo}>
+         <div class="button">
             <img src="../../images/plus.png"/>
          </div>
       `
-    }
-
-    openLightbox() {
-        console.log('opened');
     }
 }
 

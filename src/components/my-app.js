@@ -19,7 +19,7 @@ class MyApp extends LitElement {
   constructor() {
     super();
     this.currentDate = new Date();
-    this.lightboxOpen = false;
+    this.isLightboxOpen = store.getState().lightboxOpen;
   }
 
   static get properties() {
@@ -131,15 +131,13 @@ class MyApp extends LitElement {
         <div class="button">
             <to-do-button @click=${this.openCloseLightbox}></to-do-button>
         </div>
-        ${this.lightboxOpen ? html`<add-to-do-box></add-to-do-box>` : html``}; 
+        ${this.isLightboxOpen ? html`<add-to-do-box></add-to-do-box>` : html``}; 
       </div>
     `
   }
 
   openCloseLightbox() {
-    console.log(this.lightboxOpen);
-    this.lightboxOpen = !this.lightboxOpen;
-    console.log(this.lightboxOpen);
+    store.dispatch({ type: "TOGGLE_LIGHTBOX" });
   }
 
   getCurrentMonth() {
