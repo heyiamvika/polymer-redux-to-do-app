@@ -72,7 +72,7 @@ export class ToDoItem extends LitElement {
 
 
     clickItem() {
-        store.dispatch({ type: "TOGGLE_TODO", item: { id: this.id, name: this.name, checked: this.checked } });
+        store.dispatch({ type: "TOGGLE_TODO", itemId: this.id });
     }
 }
 

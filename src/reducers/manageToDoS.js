@@ -27,7 +27,7 @@ export const manageToDoS = (state = INITIAL_STATE, action) => {
         case "DELETE_TODO":
             return state;
         case "TOGGLE_TODO":
-            return toggleTodo(state.toDos, action.item.id);
+            return toggleTodo(state, action.itemId);
         case "TOGGLE_LIGHTBOX":
             return toggleLightbox(state);
         default:
@@ -39,8 +39,8 @@ export const toggleLightbox = (state) => {
     return { ...state, lightboxOpen: !state.lightboxOpen }
 }
 
-export const toggleTodo = (toDoList, toDoItemId) => {
-    return toDoList.map(item => {
+export const toggleTodo = (state, toDoItemId) => {
+    const newToDoList = state.toDos.map(item => {
         if (item.id === toDoItemId) {
             return {
                 ...item,
@@ -50,6 +50,8 @@ export const toggleTodo = (toDoList, toDoItemId) => {
             return item;
         }
     });
+
+    return { ...state, toDos: newToDoList };
 }
 
 export const addToDo = (state, toDoText) => {
