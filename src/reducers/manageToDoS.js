@@ -25,7 +25,7 @@ export const manageToDoS = (state = INITIAL_STATE, action) => {
         case "ADD_TODO":
             return addToDo(state, action.text);
         case "DELETE_TODO":
-            return state;
+            return removeToDo(state, action.itemId);
         case "TOGGLE_TODO":
             return toggleTodo(state, action.itemId);
         case "TOGGLE_LIGHTBOX":
@@ -62,4 +62,10 @@ export const addToDo = (state, toDoText) => {
     }
 
     return { ...state, toDos: [...state.toDos, newToDo] };
+}
+
+export const removeToDo = (state, toDoItemId) => {
+    const newToDoList = state.toDos.filter(item => item.id !== toDoItemId);
+
+    return { ...state, toDos: newToDoList };
 }

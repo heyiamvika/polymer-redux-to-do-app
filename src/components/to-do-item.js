@@ -12,15 +12,25 @@ export class ToDoItem extends LitElement {
 
     constructor() {
         super();
+        this.itemHovered = false;
     }
 
     static get styles() {
         return [
             css`
         .wrapper {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .item-wrapper {
+            width: 85%;
             display: flex;
             justify-content: space-between;
             margin-bottom: 20px;
+            align-items: center;
         }
 
         .to-do-text {
@@ -55,24 +65,42 @@ export class ToDoItem extends LitElement {
         .to-do-checkbox-checked {
             border-color: #50e3a4;
         }
+
+        .delete-button {
+            border: none;
+            background-color: inherit;
+            transform: rotate(45deg);
+            outline: none;
+            filter: grayscale(100%) opacity(25%);
+        }
+
+        .delete-button:hover {
+            filter: none;
+        }
         `
         ];
     }
 
     render() {
         return html`
-            <div class="wrapper" @click = ${this.clickItem}>
-                 <span class="${this.checked ? "to-do-text to-do-text-checked" : "to-do-text to-do-text-unchecked"}">${this.name}</span>
-                 <span class="${this.checked ? "to-do-checkbox to-do-checkbox-checked" : "to-do-checkbox to-do-checkbox-unchecked"}">
-                    ${this.checked ? html`<img class="checkedIcon" src="../../images/checked.png" />` : html``}
-                 </span>
+        <div class="wrapper">
+            <div class="item-wrapper" @click = ${this.clickItem}>
+                    <span class="${this.checked ? "to-do-text to-do-text-checked" : "to-do-text to-do-text-unchecked"}">${this.name}</span>
+                    <span class="${this.checked ? "to-do-checkbox to-do-checkbox-checked" : "to-do-checkbox to-do-checkbox-unchecked"}">
+                        ${this.checked ? html`<img class="checkedIcon" src="../../images/checked.png" />` : html``}
+                    </span>
             </div>
+            <button class="delete-button" @click=${this.deleteItem}><img src="../../images/plus.png"/></button>
+        </div>
             `
     }
 
-
     clickItem() {
         store.dispatch({ type: "TOGGLE_TODO", itemId: this.id });
+    }
+
+    deleteItem() {
+        store.dispatch({ type: "DELETE_TODO", itemId: this.id });
     }
 }
 
