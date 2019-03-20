@@ -4,6 +4,7 @@ import { store } from '../store';
 export class AddToDoBox extends LitElement {
     constructor() {
         super();
+        this.userInputValue = "";
     }
 
     static get properties() {
@@ -95,16 +96,26 @@ export class AddToDoBox extends LitElement {
         // Anything that's related to rendering should be done in here.
         return html`
          <div class="box">
-            <button class="close-button"><img src="../../images/plus.png"/></button>
-            <input class="user-input" type="text">
+            <button class="close-button" @click=${this.closeLightBox}><img src="../../images/plus.png"/></button>
+            <input class="user-input" type="text" @change=${this.changeUserInput}>
             <button class="add-button" @click=${this.addNewToDo}>Add To Do</button>
          </div>
       `
     }
 
-    addNewToDo() {
-        store.dispatch({ type: "ADD_TODO", text: "This is a text" });
+    changeUserInput(event) {
+        this.userInputValue = event.target.value;
     }
+
+    addNewToDo() {
+        store.dispatch({ type: "ADD_TODO", text: this.userInputValue });
+        store.dispatch({ type: "TOGGLE_LIGHTBOX" });
+    }
+
+    closeLightBox() {
+        store.dispatch({ type: "TOGGLE_LIGHTBOX" });
+    }
+
 }
 
 window.customElements.define('add-to-do-box', AddToDoBox);

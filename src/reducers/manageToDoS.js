@@ -23,7 +23,7 @@ const INITIAL_STATE = {
 export const manageToDoS = (state = INITIAL_STATE, action) => {
     switch (action.type) {
         case "ADD_TODO":
-            return addToDo(state.toDos, action.text);
+            return addToDo(state, action.text);
         case "DELETE_TODO":
             return state;
         case "TOGGLE_TODO":
@@ -52,12 +52,12 @@ export const toggleTodo = (toDoList, toDoItemId) => {
     });
 }
 
-export const addToDo = (toDoList, toDoText) => {
+export const addToDo = (state, toDoText) => {
     const newToDo = {
         name: toDoText,
         checked: false,
         id: generateID()
     }
-    console.log([...toDoList, newToDo]);
-    return [...toDoList, newToDo];
+
+    return { ...state, toDos: [...state.toDos, newToDo] };
 }

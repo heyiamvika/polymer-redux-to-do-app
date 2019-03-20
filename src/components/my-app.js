@@ -21,6 +21,7 @@ class MyApp extends connect(store)(LitElement) {
     super();
     this.currentDate = new Date();
     this.isLightboxOpen = store.getState().lightboxOpen;
+    this.toDoList = store.getState().toDos;
   }
 
   static get properties() {
@@ -111,7 +112,7 @@ class MyApp extends connect(store)(LitElement) {
   }
 
   render() {
-    const toDoS = store.getState().toDos.map(item => html`<to-do-item name=${item.name} .checked="${item.checked}" .id=${item.id}></to-do-item>`);
+    const toDoS = this.toDoList.map(item => html`<to-do-item name=${item.name} .checked="${item.checked}" .id=${item.id}></to-do-item>`);
 
     // Anything that's related to rendering should be done in here.
     return html`
@@ -138,10 +139,11 @@ class MyApp extends connect(store)(LitElement) {
   }
 
   stateChanged(state) {
-    if (this.isLightboxOpen !== state.isLightboxOpen) {
+    if (this.isLightboxOpen !== state.lightboxOpen) {
       this.isLightboxOpen = state.lightboxOpen;
     }
 
+    this.toDoList = state.toDos;
     this.requestUpdate();
   }
 
