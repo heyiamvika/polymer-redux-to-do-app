@@ -36,8 +36,6 @@ export const manageToDoS = (state = INITIAL_STATE, action) => {
 };
 
 export const toggleLightbox = (state) => {
-    console.log({ ...state, lightboxOpen: !state.lightboxOpen });
-
     return { ...state, lightboxOpen: !state.lightboxOpen }
 }
 

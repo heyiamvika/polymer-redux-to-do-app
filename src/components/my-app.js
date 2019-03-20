@@ -9,13 +9,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 */
 
 import { LitElement, html, css } from 'lit-element';
+import { connect } from 'pwa-helpers/connect-mixin.js';
 import { store } from '../store';
 
 import './to-do-item';
 import './to-do-button';
 import './add-to-do-box';
 
-class MyApp extends LitElement {
+class MyApp extends connect(store)(LitElement) {
   constructor() {
     super();
     this.currentDate = new Date();
@@ -134,6 +135,14 @@ class MyApp extends LitElement {
         ${this.isLightboxOpen ? html`<add-to-do-box></add-to-do-box>` : html``}; 
       </div>
     `
+  }
+
+  stateChanged(state) {
+    if (this.isLightboxOpen !== state.isLightboxOpen) {
+      this.isLightboxOpen = state.lightboxOpen;
+    }
+
+    this.requestUpdate();
   }
 
   openCloseLightbox() {
